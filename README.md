@@ -17,7 +17,6 @@ curl -s http://getcomposer.org/installer | php
 ```
 
 ## 2. Prepare 'composer.json'
-※Comming Soon in Packagist
 
 ```
 {
