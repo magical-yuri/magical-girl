@@ -1,0 +1,50 @@
+#!/usr/bin/env php
+<?php
+$DEV_BASE_DIR = __DIR__ . '/../../../..';
+$TABLEIMPORTER_BASE_DIR = $DEV_BASE_DIR . '/lib/DB/TableImporter';
+
+$files = array(
+  $DEV_BASE_DIR . '/vendor/autoload.php',
+  $DEV_BASE_DIR . '/../../autoload.php'
+);
+
+foreach ($files as $file) {
+    if (file_exists($file)) {
+        require $file;
+
+        define('MAGICAL_GIRL_COMPOSER_INSTALL', $file);
+
+        break;
+    }
+}
+
+if (!defined('MAGICAL_GIRL_COMPOSER_INSTALL')) {
+    die(
+      'You need to set up the project dependencies using the following commands:' . PHP_EOL .
+      'curl -s http://getcomposer.org/installer | php' . PHP_EOL .
+      'php composer.phar install' . PHP_EOL
+    );
+}
+
+if ($argc != 3) {
+    die('usage: ' . basename(__FILE__) . " [database name] [table name] \n");
+}
+
+try {
+    $generator = new MagicalGirl\TableImporterGenerator\TableImporterGenerator($argv[1], $argv[2], $TABLEIMPORTER_BASE_DIR);
+    $filePaths = $generator->generate();
+    echo pack('c',0x1B) . '[1;42m';
+    echo 'generate SUCCESS!!! : ' . $filePaths['base'];
+    echo pack('c',0x1B) . '[0m' . PHP_EOL;
+    echo pack('c',0x1B) . '[1;42m';
+    echo 'generate SUCCESS!!! : ' . $filePaths['concrete'];
+    echo pack('c',0x1B) . '[0m' . PHP_EOL;
+} catch (Exception $e) {
+    echo pack('c',0x1B) . '[1;31m';
+    echo $e->getMessage();
+    echo pack('c',0x1B) . '[0m' . PHP_EOL;
+    echo pack('c',0x1B) . '[1;41m';
+    echo 'generate FAILURE!!!';
+    echo pack('c',0x1B) . '[0m' . PHP_EOL;
+}
+

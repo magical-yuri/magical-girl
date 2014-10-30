@@ -1,0 +1,35 @@
+#!/bin/sh
+
+base_path=$(cd $(dirname $0)/../; pwd)
+if [ ! -d $base_path/lib ]; then mkdir $base_path/lib; fi
+if [ ! -d $base_path/lib/DB ]; then mkdir $base_path/lib/DB; fi
+if [ ! -d $base_path/lib/DB/TableImporter ]; then  mkdir $base_path/lib/DB/TableImporter; fi
+if [ ! -d $base_path/masterData ]; then mkdir $base_path/masterData; fi
+
+
+
+echo " <?php
+use MagicalGirl\DBConnections\DBConnectionsAbstract;
+
+class DBConnections extends DBConnectionsAbstract
+{
+    /**
+    * Plese implement the method to get DB-host, DB-user-name and DB-password
+    * The following is an example, that database-name is 'example'
+    *
+    * protected static function getExampleHost()
+    * {
+    *     return '127.0.0.1';
+    * }
+    *
+    * protected static function getExampleUserName()
+    * {
+    *     return 'user_name';
+    * }
+    *
+    * protected static function getExamplePassword()
+    * {
+    *     return 'password';
+    * }
+    */
+}" > $base_path/lib/DB/DBConnections.php

@@ -1,0 +1,11 @@
+{
+    "name": "magical-girl/magical-girl",
+    "description": "Test Data Generator",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-0": { "MagicalGirl\\": "src/" }
+    },
+    "bin": [ "bin/magicalgen", "bin/magicalinit" ] 
+}
+
