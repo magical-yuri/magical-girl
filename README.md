@@ -23,7 +23,7 @@ curl -s http://getcomposer.org/installer | php
 {
     "require-dev": {
         "phpunit/phpunit": "*",
-        "magical-girl/magical-girl": "*"
+        "magical-yuri/magical-girl": "*"
     },
     "config": {
         "bin-dir": "bin/"
